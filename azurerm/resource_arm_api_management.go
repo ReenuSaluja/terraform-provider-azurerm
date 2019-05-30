@@ -180,38 +180,38 @@ func resourceArmApiManagementService() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"disable_backend_ssl30": {
 							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  false,
+							Optional: false,
+							Default:  true,
 						},
 						"disable_backend_tls10": {
 							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  false,
+							Optional: false,
+							Default:  true,
 						},
 						"disable_backend_tls11": {
 							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  false,
+							Optional: false,
+							Default:  true,
 						},
 						"disable_triple_des_chipers": {
 							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  false,
+							Optional: false,
+							Default:  true,
 						},
 						"disable_frontend_ssl30": {
 							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  false,
+							Optional: false,
+							Default:  true,
 						},
 						"disable_frontend_tls10": {
 							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  false,
+							Optional: false,
+							Default:  true,
 						},
 						"disable_frontend_tls11": {
 							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  false,
+							Optional: false,
+							Default:  true,
 						},
 					},
 				},
@@ -895,13 +895,13 @@ func expandApiManagementCustomProperties(d *schema.ResourceData) map[string]*str
 
 	if len(vs) > 0 {
 		v := vs[0].(map[string]interface{})
-		backendProtocolSsl3 = v["disable_backend_ssl30"].(bool)
-		backendProtocolTls10 = v["disable_backend_tls10"].(bool)
-		backendProtocolTls11 = v["disable_backend_tls11"].(bool)
-		frontendProtocolSsl3 = v["disable_frontend_ssl30"].(bool)
-		frontendProtocolTls10 = v["disable_frontend_tls10"].(bool)
-		frontendProtocolTls11 = v["disable_frontend_tls11"].(bool)
-		tripleDesChipers = v["disable_triple_des_chipers"].(bool)
+		backendProtocolSsl3 = !v["disable_backend_ssl30"].(bool)
+		backendProtocolTls10 = !v["disable_backend_tls10"].(bool)
+		backendProtocolTls11 = !v["disable_backend_tls11"].(bool)
+		frontendProtocolSsl3 = !v["disable_frontend_ssl30"].(bool)
+		frontendProtocolTls10 = !v["disable_frontend_tls10"].(bool)
+		frontendProtocolTls11 = !v["disable_frontend_tls11"].(bool)
+		tripleDesChipers = !v["disable_triple_des_chipers"].(bool)
 	}
 
 	return map[string]*string{
